@@ -1,21 +1,22 @@
 const nobelPrizeLaureates = document.getElementById("nobelPrizeLaureates");
+const bookTitles = document.getElementById("bookTitles");
 const addButton = document.getElementById("addButton");
 const input = document.getElementById("input");
 const errorMessage = document.getElementById("errorMessage");
 
 
 //A function to display Laureates at the webpage and handing the name to getLibrisBooks function
-function displayLaureates(laureatesArray) {
+function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
-	if(laureatesArray.prizes.length > 0){
-	let laureateName = `${laureatesArray.prizes[0].laureates[0].firstname} ${laureatesArray.prizes[0].laureates[0].surname}`;
-		console.log(laureateName);
-	getLibrisBooks(laureateName);
-	for(laureate of laureatesArray.prizes[0].laureates){
-		laureatesHtml +=
-		`<p>${laureate.firstname}
-			${laureate.surname}</p>`;
-	}
+	if(laureatesData.prizes.length > 0){
+		let laureateName = `${laureatesData.prizes[0].laureates[0].surname},  ${laureatesData.prizes[0].laureates[0].firstname}`;
+			console.log(laureateName);
+		getLibrisBooks(laureateName);
+		for(laureate of laureatesData.prizes[0].laureates){
+			laureatesHtml +=
+			`<p>${laureate.firstname}
+				${laureate.surname}</p>`;
+		}
 	}else {
 		nobelPrizeLaureates.innerHTML = "";
 		errorMessage.innerHTML = `<p>No one was awarded this year. Please try again.</p>`;
@@ -30,8 +31,8 @@ function getLaureates(searchValue) {
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function (laureatesArray) {
-			displayLaureates(laureatesArray);
+		.then(function (laureatesData) {
+			displayLaureates(laureatesData);
 		})
 		.catch(function (error) {
 			console.log(error);
@@ -54,24 +55,45 @@ function checkInputNumber(searchValue) {
 
 //Functions concerning Libris API
 
-
+//A function to display booktitles at the webpage.
+function displayLibrisBooks(librisBooksData) {
+	let booksHtml = "";
+	let booksArray = [];
+	for(book of librisBooksData.xsearch.list){
+		if(book.language == "eng" && book.type == "book"){
+		booksArray.push(book.title);
+		}
+		//`<p>${laureate.firstname}
+			//${laureate.surname}</p>`;
+	}
+	console.log(booksArray);
+	//nobelPrizeLaureates.innerHTML = booksHtml;
+} //End of displayLauretes function
 
 
 //A function to get books from Libris API
 function getLibrisBooks(laureateName) {
-	fetch(`http://libris.kb.se/xsearch?query=${laureateName}&format=json`)
+	//fetch(`http://libris.kb.se/xsearch?query=${laureateName}&format=json`)
+	fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateName})&format=json&n=200`)
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function (librisBooksArray) {
-			//displayLibrisBooks(librisBooksArray);
-			console.log(librisBooksArray);
+		.then(function (librisBooksData) {
+			if(librisBooksData.xsearch.list.length == 0) {
+				console.log("ett problem")
+			} else {
+			displayLibrisBooks(librisBooksData);
+			console.log(librisBooksData);
+			}
 		})
 		.catch(function (error) {
 			console.log(error);
 		})
 } //End of getLibrisBooks function
-getLibrisBooks();
+
+function checkLaureateName(laureateName) {
+	
+}
 
 
 
