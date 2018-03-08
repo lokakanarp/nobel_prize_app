@@ -9,9 +9,10 @@ const errorMessage = document.getElementById("errorMessage");
 function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
 	if(laureatesData.prizes.length > 0){
-		let laureateName = `${laureatesData.prizes[0].laureates[0].surname},  ${laureatesData.prizes[0].laureates[0].firstname}`;
-			console.log(laureateName);
-		getLibrisBooks(laureateName);
+		let laureateSurName = `${laureatesData.prizes[0].laureates[0].surname}`;
+		let laureateFirstName = `${laureatesData.prizes[0].laureates[0].firstname}`;
+			console.log(laureateFirstName, laureateSurName);
+		getLibrisBooks(laureateFirstName, laureateSurName);
 		for(laureate of laureatesData.prizes[0].laureates){
 			laureatesHtml +=
 			`<p>${laureate.firstname}
@@ -72,18 +73,29 @@ function displayLibrisBooks(librisBooksData) {
 
 
 //A function to get books from Libris API
-function getLibrisBooks(laureateName) {
-	//fetch(`http://libris.kb.se/xsearch?query=${laureateName}&format=json`)
-	fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateName})&format=json&n=200`)
+function getLibrisBooks(laureateFirstName, laureateSurName) {
+	fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName} ${laureateFirstName})&format=json&n=200`)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (librisBooksData) {
 			if(librisBooksData.xsearch.list.length == 0) {
-				console.log("ett problem")
+						fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName})&format=json&n=200`)
+						.then(function (response) {
+							return response.json();
+						})
+						.then(function (librisBooksData) {
+							
+							displayLibrisBooks(librisBooksData);
+							console.log("ny sökning");
+						})
+						.catch(function (error) {
+							console.log(error);
+						})
 			} else {
 			displayLibrisBooks(librisBooksData);
 			console.log(librisBooksData);
+		    console.log("lyckad sökning");
 			}
 		})
 		.catch(function (error) {
