@@ -8,17 +8,18 @@ const errorMessage = document.getElementById("errorMessage");
 //A function to display Laureates at the webpage and handing the name to getLibrisBooks function
 function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
-	if(laureatesData.prizes.length > 0){
-		let laureateSurName = `${laureatesData.prizes[0].laureates[0].surname}`;
-		let laureateFirstName = `${laureatesData.prizes[0].laureates[0].firstname}`;
-			console.log(laureateFirstName, laureateSurName);
+	if (laureatesData.prizes.length > 0) {
+		
+		for (laureate of laureatesData.prizes[0].laureates) {
+			let laureateSurName = `${laureate.surname}`;
+		let laureateFirstName = `${laureate.firstname}`;
+		console.log(laureateFirstName, laureateSurName);
 		getLibrisBooks(laureateFirstName, laureateSurName);
-		for(laureate of laureatesData.prizes[0].laureates){
 			laureatesHtml +=
-			`<p>${laureate.firstname}
+				`<p>${laureate.firstname}
 				${laureate.surname}</p>`;
 		}
-	}else {
+	} else {
 		nobelPrizeLaureates.innerHTML = "";
 		errorMessage.innerHTML = `<p>No one was awarded this year. Please try again.</p>`;
 	}
@@ -44,7 +45,7 @@ function getLaureates(searchValue) {
 function checkInputNumber(searchValue) {
 	var date = new Date();
 	var year = date.getFullYear();
-	if(searchValue >= 1901 && searchValue <= year - 1){
+	if (searchValue >= 1901 && searchValue <= year - 1) {
 		getLaureates(searchValue);
 		errorMessage.innerHTML = "";
 	} else {
@@ -60,12 +61,10 @@ function checkInputNumber(searchValue) {
 function displayLibrisBooks(librisBooksData) {
 	let booksHtml = "";
 	let booksArray = [];
-	for(book of librisBooksData.xsearch.list){
-		if(book.language == "eng" && book.type == "book"){
-		booksArray.push(book.title);
+	for (book of librisBooksData.xsearch.list) {
+		if (book.language == "eng" && book.type == "book") {
+			booksArray.push(book.title);
 		}
-		//`<p>${laureate.firstname}
-			//${laureate.surname}</p>`;
 	}
 	console.log(booksArray);
 	//nobelPrizeLaureates.innerHTML = booksHtml;
@@ -79,33 +78,28 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 			return response.json();
 		})
 		.then(function (librisBooksData) {
-			if(librisBooksData.xsearch.list.length == 0) {
-						fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName})&format=json&n=200`)
-						.then(function (response) {
-							return response.json();
-						})
-						.then(function (librisBooksData) {
-							
-							displayLibrisBooks(librisBooksData);
-							console.log("ny sökning");
-						})
-						.catch(function (error) {
-							console.log(error);
-						})
+			if (librisBooksData.xsearch.list.length == 0) {
+				fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName})&format=json&n=200`)
+					.then(function (response) {
+						return response.json();
+					})
+					.then(function (librisBooksData) {
+						displayLibrisBooks(librisBooksData);
+						console.log("ny sökning");
+					})
+					.catch(function (error) {
+						console.log(error);
+					})
 			} else {
-			displayLibrisBooks(librisBooksData);
-			console.log(librisBooksData);
-		    console.log("lyckad sökning");
+				displayLibrisBooks(librisBooksData);
+				console.log(librisBooksData);
+				console.log("lyckad sökning");
 			}
 		})
 		.catch(function (error) {
 			console.log(error);
 		})
 } //End of getLibrisBooks function
-
-function checkLaureateName(laureateName) {
-	
-}
 
 
 
