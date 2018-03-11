@@ -82,8 +82,8 @@ function displayLibrisBooks(librisBooksData) {
 	//console.log(booksArray);
 	
 	
-	if (filteredArray.length > 8){
-		for (let i = 0; i < 8; i++) {
+	if (filteredArray.length > 6){
+		for (let i = 0; i < 6; i++) {
 			booksHtml += `<p>${filteredArray[i]}</p>`;
 		}
 	} else {
