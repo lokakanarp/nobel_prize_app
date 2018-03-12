@@ -73,8 +73,8 @@ body {
 	padding-right: 3%;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
-	//letter-spacing: 5%;
-	font-size: 1.5vw;
+	letter-spacing: 1.2px;
+	font-size: 1.3vw;
 	box-sizing: border-box;	
 	color: #0f3bbd;
 	//border-bottom: 3px solid #0f3bbd;
@@ -82,7 +82,7 @@ body {
 .separator {
 	flex: 0 1 auto;
 	background-color: #0f3bbd;
-	width: 5px;
+	width: 4px;
 }
 .motivation {
 	flex: 0 1 auto;
@@ -91,7 +91,19 @@ body {
 	width: 47%;
 	font-family: 'Volkhov', serif;
 	letter-spacing: 2px;
-	font-size: 2.5vw;
+	font-size: 2.3vw;
 	box-sizing: border-box;
+	color: #0f3bbd;
+}
+h2 {
+	font-family: 'Volkhov', serif;
+	letter-spacing: 2px;
+	font-size: 2.3vw;
+	color: #0f3bbd;
+	letter-spacing: 2px;
+}
+.errormessage {
+	font-family: 'Volkhov', serif;
+	font-size: 1.8vw;
 	color: #0f3bbd;
 }

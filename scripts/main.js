@@ -1,7 +1,7 @@
 const input = document.getElementById("input");
 const searchButton = document.getElementById("searchButton");
 const errorMessage = document.getElementById("errorMessage");
-const year = document.getElementById("yearp");
+const yearp = document.getElementById("yearp");
 const nobelPrizeLaureates = document.getElementById("nobelPrizeLaureates");
 const bookTitles = document.getElementById("bookTitles");
 const motivation = document.getElementById("motivation");
@@ -25,10 +25,13 @@ function displayLaureates(laureatesData) {
 			motivationHtml += `<p>${laureate.motivation}</p>`;
 		}
 	} else {
+		yearp.innerHTML = `00<br>00`;;
 		nobelPrizeLaureates.innerHTML = "";
 		motivation.innerHTML = "";
 		bookTitles.innerHTML = "";
-		errorMessage.innerHTML = `<p>No one was awarded this year. Please try again.</p>`;
+		errorMessage.innerHTML = 
+			`<p class="errormessage">No one was 
+			awarded this year. Please try again.</p>`;
 	}
 	nobelPrizeLaureates.innerHTML = laureatesHtml;
 	motivation.innerHTML = motivationHtml;
@@ -56,30 +59,47 @@ function checkInputNumber(searchValue) {
 		getLaureates(searchValue);
 		errorMessage.innerHTML = "";
 	} else {
+		yearp.innerHTML = `00<br>00`;
 		nobelPrizeLaureates.innerHTML = "";
-		errorMessage.innerHTML = `<p>We could not find a laureate for this year. Please try again.</p>`;
+		motivation.innerHTML = "";
+		bookTitles.innerHTML = "";
+		errorMessage.innerHTML = 
+			`<p class="errormessage">We could not find a laureate for 
+				this year. Please try again.</p>`;
 	}
 } //End of checkInputNumber function
 
 //Functions concerning Libris API
 
 //A function to display booktitles at the webpage.
-function displayLibrisBooks(librisBooksData) {
+function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
 	let booksHtml = "";
 	let booksArray = [];
 	let filteredArray = [];
+	/* Display heading of the titles first */
+	bookTitles.insertAdjacentHTML('beforeend', `<h2>Titles: ${laureateFirstName} ${laureateSurName}</h2>`);
+	/* Select only titles in English */
 	for (book of librisBooksData.xsearch.list) {
 		if (book.language == "eng" && book.type == "book") {
 			booksArray.push(book.title.toUpperCase());
+			}
 		}
-		booksArray.forEach(function (item) {
+	/* If there is no titles in English select any titles */
+	if (booksArray.length == 0){
+		for (book of librisBooksData.xsearch.list) {
+		if (book.type == "book") {
+			booksArray.push(book.title.toUpperCase());
+			}
+		}
+	}	
+	console.log(booksArray);
+	/*Filter array to remove duplicates*/
+	booksArray.forEach(function (item) {
 		if (filteredArray.indexOf(item) < 0) {
 			filteredArray.push(item);
-		}
-	});
-		//console.log(filteredArray)
-	}
-	//console.log(booksArray);
+			}
+		});
+	/* Choose only the first six titles to display */
 	if (filteredArray.length > 6){
 		for (let i = 0; i < 6; i++) {
 			booksHtml += `<p>${filteredArray[i]}</p>`;
@@ -89,33 +109,33 @@ function displayLibrisBooks(librisBooksData) {
 			booksHtml += `<p>${item}</p>`;
 		}
 	}
-	console.log(booksHtml);
-	//bookTitles.innerHTML = booksHtml;
+	/* Display the titles at the webpage */
 	bookTitles.insertAdjacentHTML('beforeend', booksHtml);
 } //End of displayLibrisBooks function
 
 //A function to get books from Libris API
 function getLibrisBooks(laureateFirstName, laureateSurName) {
+	/* Search Libris API using the firstname and surname from Nobel prize API result. */
 	fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName} ${laureateFirstName})&format=json&n=200`)
 		.then(function (response) {
 			return response.json();
 		})
 		.then(function (librisBooksData) {
+		/* If the result is zero, make new fetch using only the surname of the laureate. */
 			if (librisBooksData.xsearch.list.length == 0) {
 				fetch(`http://libris.kb.se/xsearch?query=f%C3%B6rf:(${laureateSurName})&format=json&n=200`)
 					.then(function (response) {
 						return response.json();
 					})
 					.then(function (librisBooksData) {
-						displayLibrisBooks(librisBooksData);
+						displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 						console.log("ny sökning");
 					})
 					.catch(function (error) {
 						console.log(error);
 					})
 			} else {
-				displayLibrisBooks(librisBooksData);
-				console.log(librisBooksData);
+				displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 				console.log("lyckad sökning");
 			}
 		})
