@@ -80,8 +80,6 @@ function displayLibrisBooks(librisBooksData) {
 		//console.log(filteredArray)
 	}
 	//console.log(booksArray);
-	
-	
 	if (filteredArray.length > 6){
 		for (let i = 0; i < 6; i++) {
 			booksHtml += `<p>${filteredArray[i]}</p>`;
@@ -134,6 +132,7 @@ function displayYear(searchValue) {
 
 searchButton.addEventListener('click', function () {
 	const searchValue = input.value;
+		bookTitles.innerHTML = "";
 	displayYear(searchValue);
 	checkInputNumber(searchValue);
 	input.value = "";

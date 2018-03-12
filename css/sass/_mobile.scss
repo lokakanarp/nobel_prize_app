@@ -5,8 +5,6 @@ body {
 .superwrapper {
 	display: flex;
 	flex-direction: column;
-	//margin: 0 auto;
-	//background-color: red;
 	justify-content: space-between;
 	align-content: space-between;
 	margin: 0;
@@ -14,12 +12,10 @@ body {
 }
 .top {
 	flex: 0 1 auto;
-	//position: absolute;
 	background-color: #f3ccbe;
 	padding: 5%;
 	margin: 0;
 	z-index: 10;
-	//width: 100%;
 }
 .wrapper {
 	display: flex;
@@ -28,15 +24,18 @@ body {
 	width: 90%;
 	justify-content: center;
 	margin: 0 auto;
-	//background-color: red;
 }
 .year {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 1 auto;
 	position: relative;
 	text-align: center;
 }
  #yearp {
-	font-size: 48em;
-	line-height: 80vh;
+	flex: 0 1 auto;
+	font-size: 65vw;
+	line-height: 42vw;
 	color: #f3ccbe;
 	padding: 0;
 	margin-bottom: 10vh;
@@ -48,23 +47,17 @@ body {
 	flex: 0 1 auto;
 	flex-direction: column;
 	position: absolute;
-	//max-height: 100%;
-	//background-color: red;
 }
 .nobelPrizeLaureates {
+	flex: 0 1 auto;
 	font-family: 'Volkhov', serif;
-	//line-height: 110%;
-	//margin-bottom: 2vh;
-	//margin-top: 5vh;
 	text-align: center;
-	//background-color: aqua;
 	width: 100%;
 }
 .nobelPrizeLaureates p {
-	font-size: 8em;
+	font-size: 8vw;
 	line-height: 120%;
 	color: #0f3bbd;
-	//z-index: 10;
 }
 .lower {
 	display: flex;
@@ -80,13 +73,14 @@ body {
 	padding-right: 3%;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
-	letter-spacing: 2px;
-	font-size: 3vh;
+	//letter-spacing: 5%;
+	font-size: 1.5vw;
 	box-sizing: border-box;	
 	color: #0f3bbd;
 	//border-bottom: 3px solid #0f3bbd;
 }
 .separator {
+	flex: 0 1 auto;
 	background-color: #0f3bbd;
 	width: 5px;
 }
@@ -95,16 +89,9 @@ body {
 	text-align: left;
 	padding-left: 3%;
 	width: 47%;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Volkhov', serif;
 	letter-spacing: 2px;
-	font-size: 4vh;
+	font-size: 2.5vw;
 	box-sizing: border-box;
 	color: #0f3bbd;
-}
-.footer {
-	flex: 0 1 auto;
-	//margin-top: 50px;
-	background-color: #f3ccbe;
-	padding: 5%;
-	margin: 0;
 }
