@@ -5,18 +5,28 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="css/css/style.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://fonts.googleapis.com/css?family=Roboto|Rozha+One|Volkhov" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto|Rozha+One|Volkhov" rel="stylesheet">
 	
 </head>
 <body>
 <main>
   <div class="superwrapper">
   		<div class="top">
-			<input  type="Number" id="input" placeholder="Enter a year"/>
-			<button id="searchButton">
-				Show Nobel prize laureate
-			</button>
-			<div id="errorMessage"></div>
+  			<div class="logo"><h1>Who was awarded<br><span class="smaller">THE NOBEL PRIZE IN LITERATURE?</span></h1>
+  			<div class="instruction">Enter a year between 1901 and last year to find out who was awarded the Nobel Prize in Literature.</div>
+  			</div>
+  			<div class="search">
+				<input  type="Number" id="input" placeholder="Enter a year"/>
+				<button id="searchButton">
+					Show Nobel prize laureate
+				</button>
+				<div id="errorMessage"></div>
+			</div>
+			
+			<div class="info">
+				<p>This app uses the Nobel Prize API to get facts about people who has been awarded the Nobel Prize in Literature. Learn more at <a href="https://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/">Nobelprize.org.</a> It also uses the LIBRIS API to get book titles by the laureates. LIBRIS is the catalogue of the Swedish libraries. Learn more at <a href="http://libris.kb.se/">Libris.kb.se.</a> Created by Loka Kanarp, Medieinstitutet 2018. <a href="https://github.com/lokakanarp/nobel_prize_app">GitHub repo.</a></p>
+			</div>
+			
 		</div>
 		<div class="wrapper">
 			<div id="year" class="year">

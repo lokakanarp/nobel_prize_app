@@ -11,11 +11,58 @@ body {
 	padding: 0;
 }
 .top {
+	display: flex;
 	flex: 0 1 auto;
 	background-color: #f3ccbe;
-	padding: 5%;
+	padding: 2% 4% 2% 4%;
 	margin: 0;
 	z-index: 10;
+	justify-content: space-between;
+}
+.search  {
+	flex: 0 1 auto;
+	width: 30%;	
+	text-align: center;
+}
+.logo {
+	font-family: 'Volkhov', serif;
+	font-size: 1.9vw;
+	line-height: 90%;
+	color: #0f3bbd;
+	text-align: center;
+	width: 30%;
+}
+h1 {
+	font-size: 1.9vw;
+	line-height: 90%;
+	margin-bottom: 8%;
+}
+.smaller {
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+}
+.instruction {
+	font-family: 'Volkhov', serif;
+	font-size: 1.4vw;
+	color: #0f3bbd;
+	line-height: 160%;
+	//text-align: left;
+}
+.info {
+	flex: 0 1 auto;
+	width: 30%;	
+	//background-color: aqua;
+	text-align: right;
+	font-family: 'Volkhov', serif;
+	font-size: 1vw;
+	color: #0f3bbd;
+	line-height: 160%;
+	
+}
+a, a:visited {
+	color: #0f3bbd;
 }
 .wrapper {
 	display: flex;
@@ -74,7 +121,7 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	letter-spacing: 1.2px;
-	font-size: 1.3vw;
+	font-size: 1.2vw;
 	box-sizing: border-box;	
 	color: #0f3bbd;
 	//border-bottom: 3px solid #0f3bbd;
@@ -82,7 +129,7 @@ body {
 .separator {
 	flex: 0 1 auto;
 	background-color: #0f3bbd;
-	width: 4px;
+	width: 3px;
 }
 .motivation {
 	flex: 0 1 auto;
