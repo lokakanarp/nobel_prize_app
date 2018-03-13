@@ -1,6 +1,8 @@
 body {
 	background-color: #fbeeea;
 	margin: 0;
+	font-family: 'Volkhov', serif;
+	color: #0f3bbd;
 }
 .superwrapper {
 	display: flex;
@@ -14,7 +16,7 @@ body {
 	display: flex;
 	flex: 0 1 auto;
 	background-color: #f3ccbe;
-	padding: 2% 4% 2% 4%;
+	padding: 3% 4% 3% 4%;
 	margin: 0;
 	z-index: 10;
 	justify-content: space-between;
@@ -28,7 +30,7 @@ body {
 	font-family: 'Volkhov', serif;
 	font-size: 1.9vw;
 	line-height: 90%;
-	color: #0f3bbd;
+	color: black;
 	text-align: center;
 	width: 30%;
 }
@@ -36,6 +38,7 @@ h1 {
 	font-size: 1.9vw;
 	line-height: 90%;
 	margin-bottom: 8%;
+	color: black;
 }
 .smaller {
 	font-family: 'Roboto', sans-serif;
@@ -97,14 +100,14 @@ a, a:visited {
 }
 .nobelPrizeLaureates {
 	flex: 0 1 auto;
-	font-family: 'Volkhov', serif;
 	text-align: center;
 	width: 100%;
 }
-.nobelPrizeLaureates p {
+.nobelPrizeLaureates h2 {
 	font-size: 8vw;
 	line-height: 120%;
-	color: #0f3bbd;
+	font-family: 'Volkhov', serif;
+	//color: #0f3bbd;
 }
 .lower {
 	display: flex;
@@ -145,7 +148,7 @@ a, a:visited {
 h2 {
 	font-family: 'Volkhov', serif;
 	letter-spacing: 2px;
-	font-size: 2.3vw;
+	font-size: 2vw;
 	color: #0f3bbd;
 	letter-spacing: 2px;
 }
