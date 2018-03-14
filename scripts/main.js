@@ -10,34 +10,34 @@ const moreInfo = document.getElementById("moreInfo");
 
 
 
-/*Function to fetch and display list of counties. */
+/*Function to fetch and display list of laureates from the same country. */
 function fetchAllByBornCountry(country) {
-	const testDiv = document.getElementById("testDiv");
 	byCountryArray = [];
 	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
 	.then(function (response) {
 		return response.json();
 	})
 	.then(function (allByCountryData) {
-		console.log(allByCountryData.laureates);
+		/* Select only the literature category. */
 		for(person of allByCountryData.laureates) {
 			if (person.prizes[0].category == "literature") {
-				byCountryArray.push(`<p id="${person.prizes[0].year}"class="moreNames">${person.firstname} ${person.surname}</p>`);
+				/* Make the result into html with id and class and put it in an array */
+				byCountryArray.push(`<p id="${person.prizes[0].year}" class="moreNames">${person.firstname} ${person.surname}</p>`);
 			}
 		}
-		console.log(byCountryArray);
 		let namesCountryHtml = "";
+		/*Make all of the array items into a string. */
 		for (name of byCountryArray){
 			namesCountryHtml += name;
 		}
-		console.log(namesCountryHtml);
+		/* Display the result on the webpage. */
 		moreInfo.innerHTML = namesCountryHtml;
+		/* Empy the array */
 		byCountryArray = [];
-		
+		/* Get all the names on the list and loop through. Put eventlisteners on each. Use the year from the id to make new search.*/
 		let moreNames = document.getElementsByClassName("moreNames");
 		for(oneName of moreNames) {
 			oneName.addEventListener('click', function () {
-				console.log(this.id);
 				const yearFromId = this.id;
 				emptyAllFields();
 				displayYear(yearFromId);
@@ -49,7 +49,7 @@ function fetchAllByBornCountry(country) {
 			console.log(error);
 		})
 }
-/*Create links to list of all awarded from the same country. */
+/*Function to reate links to display all awarded from the same country. */
 function createCountryLinks(laureateInfoData) {
 let country = laureateInfoData.laureates[0].bornCountry;
 	countryLinkHtml = `<div id="countryLink" class="countryLink"><h3>
@@ -62,7 +62,6 @@ linksToMoreInfo.insertAdjacentHTML('beforeend', countryLinkHtml);
 	})
 	}
 }
-
 /* Function to display name, birth date and death date. */
 function displayLaureateInfo(laureateInfoData) {
 	let infoHtml = "";
@@ -75,7 +74,6 @@ function displayLaureateInfo(laureateInfoData) {
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
 	createCountryLinks(laureateInfoData);
 }
-
 //Function to fetch more info from Nobel Prize API.
 function fetchMoreInfoById(id){
 		fetch(`http://api.nobelprize.org/v1/laureate.json?id=${id}`)
@@ -141,8 +139,6 @@ function checkInputNumber(searchValue) {
 				this year. Please try again.</p>`;
 	}
 } //End of checkInputNumber function
-
-//Functions concerning Libris API:
 
 //A function to display booktitles at the webpage.
 function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {

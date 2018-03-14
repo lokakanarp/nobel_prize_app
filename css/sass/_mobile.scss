@@ -190,20 +190,18 @@ h2 {
 	letter-spacing: 2px;
 	font-size: 3.5vw;
 	text-align: right;
-	
+	cursor: pointer; 
 }
 .bottom {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
 	justify-content: space-between;
-	//flex-wrap: wrap;
 }
 .linksToMoreInfo {
 	flex: 0 1 auto;
 	width: 48%;
 	padding-right: 3%;
-	//background-color: aqua;
 	box-sizing: border-box;
 }
 .moreInfo {
@@ -219,4 +217,6 @@ h2 {
 	font-weight: 700;
 	letter-spacing: 1.2px;
 	font-size: 3.5vw;
+	cursor: pointer; 
+	text-decoration: underline;
 }
