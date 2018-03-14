@@ -10,7 +10,7 @@ const moreInfo = document.getElementById("moreInfo");
 
 
 
-//Function to fetch and display list of counties.
+/*Function to fetch and display list of counties. */
 function fetchAllByBornCountry(country) {
 	const testDiv = document.getElementById("testDiv");
 	byCountryArray = [];
@@ -22,27 +22,50 @@ function fetchAllByBornCountry(country) {
 		console.log(allByCountryData.laureates);
 		for(person of allByCountryData.laureates) {
 			if (person.prizes[0].category == "literature") {
-				byCountryArray.push(person.firstname + " " + person.surname);
+				byCountryArray.push(`<p id="${person.prizes[0].year}"class="moreNames">${person.firstname} ${person.surname}</p>`);
 			}
 		}
 		console.log(byCountryArray);
 		let namesCountryHtml = "";
 		for (name of byCountryArray){
-			namesCountryHtml += `<p class="moreNames">${name}</p>`;
+			namesCountryHtml += name;
 		}
+		console.log(namesCountryHtml);
 		moreInfo.innerHTML = namesCountryHtml;
 		byCountryArray = [];
+		
+		let moreNames = document.getElementsByClassName("moreNames");
+		for(oneName of moreNames) {
+			oneName.addEventListener('click', function () {
+				console.log(this.id);
+				const yearFromId = this.id;
+				emptyAllFields();
+				displayYear(yearFromId);
+				checkInputNumber(yearFromId);
+			})
+		}
 	})
 	.catch(function (error) {
 			console.log(error);
 		})
 }
-
-function displayLaureateInfo(laureateInfoData) {
-	let infoHtml = "";
-	let country = laureateInfoData.laureates[0].bornCountry;
+/*Create links to list of all awarded from the same country. */
+function createCountryLinks(laureateInfoData) {
+let country = laureateInfoData.laureates[0].bornCountry;
 	countryLinkHtml = `<div id="countryLink" class="countryLink"><h3>
 					List all of the awarded born in ${country}</h3></div>`;
+linksToMoreInfo.insertAdjacentHTML('beforeend', countryLinkHtml);
+	const countryLink = document.getElementsByClassName("countryLink");
+	for(link of countryLink){
+	link.addEventListener('click', function () {
+		fetchAllByBornCountry(country);
+	})
+	}
+}
+
+/* Function to display name, birth date and death date. */
+function displayLaureateInfo(laureateInfoData) {
+	let infoHtml = "";
 	if(laureateInfoData.laureates[0].died == "0000-00-00"){
 		infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}.</p>`;	
 	}
@@ -50,14 +73,7 @@ function displayLaureateInfo(laureateInfoData) {
 	infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}. Deceased ${laureateInfoData.laureates[0].died} in ${laureateInfoData.laureates[0].diedCountry}.<p>`;
 	}
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
-	//Om det kommer en dublett ta bort ena.
-	linksToMoreInfo.insertAdjacentHTML('beforeend', countryLinkHtml);
-	const countryLink = document.getElementsByClassName("countryLink");
-	for(link of countryLink){
-	link.addEventListener('click', function () {
-		fetchAllByBornCountry(country);
-	})
-	}
+	createCountryLinks(laureateInfoData);
 }
 
 //Function to fetch more info from Nobel Prize API.
@@ -70,7 +86,6 @@ function fetchMoreInfoById(id){
 			displayLaureateInfo(laureateInfoData);
 		})
 		.catch(function (error) {
-			errorMessage.innerHTML = 
 			console.log(error);
 		})
 }
@@ -215,9 +230,8 @@ function emptyAllFields(){
 }
 //Search button
 searchButton.addEventListener('click', function () {
-	const searchValue = input.value;
-	//let country = "";
+	const value = input.value;
 	emptyAllFields();
-	displayYear(searchValue);
-	checkInputNumber(searchValue);	
+	displayYear(value);
+	checkInputNumber(value);	
 })
