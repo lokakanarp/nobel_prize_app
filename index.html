@@ -16,15 +16,15 @@
   			<div class="instruction">Enter a year between 1901 and last year to find out who was awarded the Nobel Prize in Literature.</div>
   			</div>
   			<div class="search">
-				<input  type="Number" id="input" placeholder="Enter a year"/>
-				<button id="searchButton">
-					Show Nobel prize laureate
+				<input  type="Number" id="input" class="input" placeholder="Enter a year"/>
+				<button id="searchButton" class="searchButton">
+					Show Nobel Prize Laureate
 				</button>
 				<div id="errorMessage"></div>
 			</div>
 			
 			<div class="info">
-				<p>This app uses the Nobel Prize API to get facts about people who has been awarded the Nobel Prize in Literature. Learn more at <a href="https://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/">Nobelprize.org.</a> It also uses the LIBRIS API to get book titles by the laureates. Learn more at <a href="http://libris.kb.se/">Libris.kb.se.</a> Created by Loka Kanarp, Medieinstitutet 2018. <a href="https://github.com/lokakanarp/nobel_prize_app">GitHub repo.</a></p>
+				<p>This app uses the Nobel Prize API to present facts about those who have been awarded the Nobel Prize in Literature. Learn more at <a href="https://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/">Nobelprize.org.</a> It also uses the LIBRIS API to get book titles by the laureates. Learn more at <a href="http://libris.kb.se/">Libris.kb.se.</a> Created by Loka Kanarp, Medieinstitutet 2018. <a href="https://github.com/lokakanarp/nobel_prize_app">GitHub repo.</a></p>
 			</div>
 			
 		</div>
@@ -37,8 +37,9 @@
 					  <div id="bookTitles" class="bookTitles"></div>
 					  <div class="separator"></div>
 					  <div id="motivation" class="motivation"></div>
+					  <div id="linksToMoreInfo"></div>
 			  		</div>
-			  		<div class="laureateInfo" id="laureateInfo"></div>
+			  		<div class="moreInfo" id="moreInfo"></div>
 				</div>
 				<div id="yearp">00<br>00</div>
 		  </div>

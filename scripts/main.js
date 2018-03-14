@@ -5,42 +5,10 @@ const yearp = document.getElementById("yearp");
 const nobelPrizeLaureates = document.getElementById("nobelPrizeLaureates");
 const bookTitles = document.getElementById("bookTitles");
 const motivation = document.getElementById("motivation");
-const laureateInfo = document.getElementById("laureateInfo");
-var idArray = [];
+const linksToMoreInfo = document.getElementById("linksToMoreInfo")
+const moreInfo = document.getElementById("moreInfo");
 
-/*function fetchAllInfo (idArray){
-	let countryArray = [];
-	for (ids of idArray) {
-		fetch(`http://api.nobelprize.org/v1/laureate.json?id=${ids}`)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (allInfoData) {
-			console.log("hej");
-			console.log(allInfoData.laureates[0].bornCountry);
-		})
-	}
-}*/
-
-//Function to fetch all laureates at once.
-/*function fetchAllLaureates(){
-	fetch(`http://api.nobelprize.org/v1/prize.json?category=literature`)
-		.then(function (response) {
-			return response.json();
-		})
-		.then(function (allLaureatesData) {
-		for(prize of allLaureatesData.prizes)
-			for(person of prize.laureates)
-			idArray.push(person.id); 	
-		})
-		.catch(function (error) {
-			console.log(error);
-		})
-	fetchAllInfo(idArray);
-	//console.log(idArray);
-}*/
-
-
+//Function to fetch and display list of counties.
 function fetchAllByBornCountry(country) {
 	byCountryArray = [];
 	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
@@ -48,62 +16,72 @@ function fetchAllByBornCountry(country) {
 		return response.json();
 	})
 	.then(function (allByCountryData) {
-		for(person of allByCountryData) {
-			if (person.laureates[0].prizes[0].category == "literature") {
-				byCountryArray.push(person.laureates[0].firstname + " " + person.laureates[0].surname);
+		console.log(allByCountryData.laureates);
+		for(person of allByCountryData.laureates) {
+			if (person.prizes[0].category == "literature") {
+				byCountryArray.push(person.firstname + " " + person.surname);
 			}
 		}
-		return byCountryArray;
+		console.log(byCountryArray);
+		let namesCountryHtml = "";
+		for (name of byCountryArray){
+			namesCountryHtml += `<p>${name}</p>`;
+		}
+		moreInfo.innerHTML = namesCountryHtml;
 	})
 	.catch(function (error) {
 			console.log(error);
 		})
 }
 
-function displayMoreInfo(moreInfoData) {
+function displayLaureateInfo(laureateInfoData) {
 	let infoHtml = "";
-	if(moreInfoData.laureates[0].died == "0000-00-00"){
-		infoHtml = `<h2>${moreInfoData.laureates[0].firstname} ${moreInfoData.laureates[0].surname}</h2><p>Born ${moreInfoData.laureates[0].born} in ${moreInfoData.laureates[0].bornCountry}.</p>`;
+	let country = laureateInfoData.laureates[0].bornCountry;
+	console.log(country);
+	countryLinkHtml = `<h3 id="countryLink" class="countryLink">
+					List all of the awarded born in ${country}</h3>`;
+	if(laureateInfoData.laureates[0].died == "0000-00-00"){
+		infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}.</p>`;	
 	}
 	else {
-	infoHtml = `<h2>${moreInfoData.laureates[0].firstname} ${moreInfoData.laureates[0].surname}</h2><p>Born ${moreInfoData.laureates[0].born} in ${moreInfoData.laureates[0].bornCountry}. Died ${moreInfoData.laureates[0].died} in ${moreInfoData.laureates[0].diedCountry}.<p>`;
+	infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}. Deceased ${laureateInfoData.laureates[0].died} in ${laureateInfoData.laureates[0].diedCountry}.<p>`;
 	}
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
+	linksToMoreInfo.innerHTML = countryLinkHtml;
+	const countryLink = document.getElementById("countryLink");
+	//console.log(countryButton);
+	countryLink.addEventListener('click', function () {
+		moreInfo.innerHTML = "";
+		fetchAllByBornCountry(country);
+	})
 }
 
-//Function to get more info from Nobel prize api.
+//Function to fetch more info from Nobel Prize API.
 function fetchMoreInfoById(id){
 		fetch(`http://api.nobelprize.org/v1/laureate.json?id=${id}`)
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function (moreInfoData) {
-			displayMoreInfo(moreInfoData);
+		.then(function (laureateInfoData) {
+			displayLaureateInfo(laureateInfoData);
 		})
 		.catch(function (error) {
 			console.log(error);
 		})
 }
 
-
-/*A function to display laureates at the webpage and 
-handing the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function*/
+/*A function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
 function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
 	let motivationHtml = "";
 	if (laureatesData.prizes.length > 0) {
 		for (laureate of laureatesData.prizes[0].laureates) {
-			let laureateSurName = `${laureate.surname}`;
-			let laureateFirstName = `${laureate.firstname}`;
-			let id = `${laureate.id}`;
-			console.log(laureateFirstName, laureateSurName);
+			let laureateSurName = laureate.surname;
+			let laureateFirstName = laureate.firstname;
+			let id = laureate.id;
 			getLibrisBooks(laureateFirstName, laureateSurName);
-			console.log(id);
 			fetchMoreInfoById(id);
-			/*laureatesHtml +=
-				`<p>${laureate.firstname}
-				${laureate.surname}</p>`;
-			motivationHtml += `<p>${laureate.motivation}</p>`;*/
+			motivationHtml += `<p>${laureate.motivation}</p>`;
 		}
 	} else {
 		yearp.innerHTML = `00<br>00`;;
@@ -112,7 +90,6 @@ function displayLaureates(laureatesData) {
 			`<p class="errormessage">No one was 
 			awarded this year. Please try again.</p>`;
 	}
-	//nobelPrizeLaureates.innerHTML = laureatesHtml;
 	motivation.innerHTML = motivationHtml;
 } //End of displayLauretes function
 
@@ -146,7 +123,7 @@ function checkInputNumber(searchValue) {
 	}
 } //End of checkInputNumber function
 
-//Functions concerning Libris API
+//Functions concerning Libris API:
 
 //A function to display booktitles at the webpage.
 function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
@@ -154,7 +131,7 @@ function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName)
 	let booksArray = [];
 	let filteredArray = [];
 	/* Display heading of the titles first. */
-	bookTitles.insertAdjacentHTML('beforeend', `<h2>Titles: ${laureateFirstName} ${laureateSurName}</h2>`);
+	bookTitles.insertAdjacentHTML('beforeend', `<h2>Titles by ${laureateFirstName} ${laureateSurName}</h2>`);
 	/* Select only titles in English */
 	for (book of librisBooksData.xsearch.list) {
 		if (book.language == "eng" && book.type == "book") {
@@ -169,7 +146,6 @@ function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName)
 			}
 		}
 	}	
-	console.log(booksArray);
 	/* Filter array to remove duplicates. */
 	booksArray.forEach(function (item) {
 		if (filteredArray.indexOf(item) < 0) {
@@ -227,19 +203,19 @@ function displayYear(searchValue) {
 	yearp.innerHTML = dividedYear;
 }
 
+//Function to remove all data before new search is made.
 function emptyAllFields(){
 	bookTitles.innerHTML = "";
 	nobelPrizeLaureates.innerHTML = "";
 	motivation.innerHTML = "";
-	laureateInfo.innerHTML = "";	
+	moreInfo.innerHTML = "";	
 	input.value = "";
 }
 
-
 searchButton.addEventListener('click', function () {
 	const searchValue = input.value;
+	//let country = "";
 	emptyAllFields();
 	displayYear(searchValue);
-	checkInputNumber(searchValue);
-	
+	checkInputNumber(searchValue);	
 })
