@@ -9,6 +9,7 @@ const linksToMoreInfo = document.getElementById("linksToMoreInfo")
 const moreInfo = document.getElementById("moreInfo");
 
 
+
 //Function to fetch and display list of counties.
 function fetchAllByBornCountry(country) {
 	const testDiv = document.getElementById("testDiv");
@@ -27,10 +28,9 @@ function fetchAllByBornCountry(country) {
 		console.log(byCountryArray);
 		let namesCountryHtml = "";
 		for (name of byCountryArray){
-			namesCountryHtml += `<p>${name}</p>`;
+			namesCountryHtml += `<p class="moreNames">${name}</p>`;
 		}
-		testDiv.innerHTML = namesCountryHtml;
-		//console.log(namesCountryHtml);
+		moreInfo.innerHTML = namesCountryHtml;
 		byCountryArray = [];
 	})
 	.catch(function (error) {
@@ -41,9 +41,8 @@ function fetchAllByBornCountry(country) {
 function displayLaureateInfo(laureateInfoData) {
 	let infoHtml = "";
 	let country = laureateInfoData.laureates[0].bornCountry;
-	console.log(country);
 	countryLinkHtml = `<div id="countryLink" class="countryLink"><h3>
-					List all of the awarded born in ${country}</h3></div><div id="testDiv"></div>`;
+					List all of the awarded born in ${country}</h3></div>`;
 	if(laureateInfoData.laureates[0].died == "0000-00-00"){
 		infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}.</p>`;	
 	}
@@ -51,13 +50,11 @@ function displayLaureateInfo(laureateInfoData) {
 	infoHtml = `<h2>${laureateInfoData.laureates[0].firstname} ${laureateInfoData.laureates[0].surname}</h2><p class="bornInfo">Born ${laureateInfoData.laureates[0].born} in ${laureateInfoData.laureates[0].bornCountry}. Deceased ${laureateInfoData.laureates[0].died} in ${laureateInfoData.laureates[0].diedCountry}.<p>`;
 	}
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
+	//Om det kommer en dublett ta bort ena.
 	linksToMoreInfo.insertAdjacentHTML('beforeend', countryLinkHtml);
-	
-	
 	const countryLink = document.getElementsByClassName("countryLink");
 	for(link of countryLink){
 	link.addEventListener('click', function () {
-		//moreInfo.innerHTML = "";
 		fetchAllByBornCountry(country);
 	})
 	}
@@ -73,10 +70,10 @@ function fetchMoreInfoById(id){
 			displayLaureateInfo(laureateInfoData);
 		})
 		.catch(function (error) {
+			errorMessage.innerHTML = 
 			console.log(error);
 		})
 }
-
 /*A function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
 function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
@@ -189,14 +186,12 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 					})
 					.then(function (librisBooksData) {
 						displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
-						console.log("ny sökning");
 					})
 					.catch(function (error) {
 						console.log(error);
 					})
 			} else {
 				displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
-				console.log("lyckad sökning");
 			}
 		})
 		.catch(function (error) {
@@ -209,7 +204,6 @@ function displayYear(searchValue) {
 	var dividedYear = `${searchValue.substring(0, 2)}<br>${searchValue.substring(2, 4)}`;
 	yearp.innerHTML = dividedYear;
 }
-
 //Function to remove all data before new search is made.
 function emptyAllFields(){
 	bookTitles.innerHTML = "";
@@ -219,7 +213,7 @@ function emptyAllFields(){
 	input.value = "";
 	linksToMoreInfo.innerHTML = "";
 }
-
+//Search button
 searchButton.addEventListener('click', function () {
 	const searchValue = input.value;
 	//let country = "";

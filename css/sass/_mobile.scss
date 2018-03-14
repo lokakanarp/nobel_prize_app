@@ -8,13 +8,15 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	align-content: space-between;
+	//align-content: space-between;
 	margin: 0;
 	padding: 0;
 }
 .top {
 	display: flex;
 	flex: 0 1 auto;
+	flex-direction: column;
+	flex-wrap: wrap;
 	background-color: #f3ccbe;
 	padding: 3% 4% 3% 4%;
 	margin: 0;
@@ -23,7 +25,7 @@ body {
 }
 .search  {
 	flex: 0 1 auto;
-	width: 30%;	
+	width: 100%;	
 	text-align: center;
 }
 .searchButton {
@@ -33,7 +35,7 @@ body {
     padding: 5% 5%;
  	border-radius: 15px;
     text-decoration: none;
-    font-size: 1.1vw;
+    font-size: 3.2vw;
     margin: 0 auto;
 	display: block;
 	box-sizing: border-box;
@@ -42,7 +44,7 @@ body {
 .input {
 	background-color: #fbeeea;
 	border-radius: 15px;
-	font-size: 1.3vw;
+	font-size: 4vw;
 	padding: 3% 0%;
 	border: 2px solid #0f3bbd;
 	margin: 10% auto 6% auto;
@@ -54,36 +56,37 @@ body {
 	line-height: 90%;
 	color: black;
 	text-align: center;
-	width: 30%;
+	width: 100%;
 }
 h1 {
-	font-size: 1.9vw;
+	font-size: 6vw;
 	line-height: 90%;
 	margin-bottom: 8%;
 	color: black;
 }
 .smaller {
 	font-family: 'Roboto', sans-serif;
-	font-size: 0.85vw;
+	font-size: 2.8vw;
 	font-weight: 700;
 	letter-spacing: 1.2px;
 }
 .instruction {
 	font-family: 'Volkhov', serif;
-	font-size: 1.4vw;
+	font-size: 4vw;
 	color: #0f3bbd;
 	line-height: 160%;
 	//text-align: left;
 }
 .info {
 	flex: 0 1 auto;
-	width: 30%;	
+	width: 100%;	
 	//background-color: aqua;
-	text-align: right;
+	text-align: center;
 	font-family: 'Volkhov', serif;
-	font-size: 1vw;
+	font-size: 3.2vw;
 	color: #0f3bbd;
 	line-height: 160%;
+	margin-top: 5%;
 	
 }
 a, a:visited {
@@ -93,7 +96,7 @@ a, a:visited {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
-	width: 90%;
+	//width: 90%;
 	justify-content: center;
 	margin: 0 auto;
 }
@@ -126,7 +129,7 @@ a, a:visited {
 	width: 100%;
 }
 .nobelPrizeLaureates h2 {
-	font-size: 8vw;
+	font-size: 10vw;
 	line-height: 120%;
 	font-family: 'Volkhov', serif;
 	letter-spacing: 5px;
@@ -138,15 +141,15 @@ a, a:visited {
 	flex: 0 1 auto;
 	justify-content: space-around;
 }
-.bookTitles {
+.bookTitles{
 	flex: 0 1 auto;
-	width: 47%;
+	width: 49%;
 	text-align: right;
 	padding-right: 3%;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	letter-spacing: 1.2px;
-	font-size: 1.2vw;
+	font-size: 3.5vw;
 	box-sizing: border-box;	
 }
 .separator {
@@ -158,16 +161,16 @@ a, a:visited {
 	flex: 0 1 auto;
 	text-align: left;
 	padding-left: 3%;
-	width: 47%;
+	width: 49%;
 	font-family: 'Volkhov', serif;
 	letter-spacing: 2px;
-	font-size: 2.3vw;
+	font-size: 4vw;
 	box-sizing: border-box;
 }
 h2 {
 	font-family: 'Volkhov', serif;
 	letter-spacing: 2px;
-	font-size: 2vw;
+	font-size: 4vw;
 	font-weight: 100;
 	margin-bottom: 3%;
 }
@@ -175,10 +178,45 @@ h2 {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	letter-spacing: 1.2px;
-	font-size: 1.2vw;
+	font-size: 3.5vw;
 	margin-bottom: 10%;
 }
 .errormessage {
 	font-family: 'Volkhov', serif;
 	font-size: 1.8vw;
+}
+.countryLink {
+	text-decoration: underline;
+	letter-spacing: 2px;
+	font-size: 3.5vw;
+	text-align: right;
+	
+}
+.bottom {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 1 auto;
+	justify-content: space-between;
+	//flex-wrap: wrap;
+}
+.linksToMoreInfo {
+	flex: 0 1 auto;
+	width: 48%;
+	padding-right: 3%;
+	//background-color: aqua;
+	box-sizing: border-box;
+}
+.moreInfo {
+	flex: 0 1 auto;
+	width: 48%;
+	text-align: left;
+	padding-left: 3%;
+	box-sizing: border-box;
+	padding-top: 2%;
+}
+.moreNames {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+	font-size: 3.5vw;
 }

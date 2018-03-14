@@ -1,0 +1,143 @@
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 0 1 auto;
+	width: 90%;
+	justify-content: center;
+	margin: 0 auto;
+}
+.top {
+	display: flex;
+	flex: 0 1 auto;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color: #f3ccbe;
+	padding: 3% 4% 3% 4%;
+	margin: 0;
+	z-index: 10;
+	justify-content: space-between;
+}
+.search  {
+	flex: 0 1 auto;
+	width: 30%;	
+	text-align: center;
+}
+.searchButton {
+	background-color: #0f3bbd;
+    border: none;
+    color: #fbeeea;
+    padding: 5% 5%;
+ 	border-radius: 15px;
+    text-decoration: none;
+    font-size: 1.1vw;
+    margin: 0 auto;
+	display: block;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+}
+.input {
+	background-color: #fbeeea;
+	border-radius: 15px;
+	font-size: 1.3vw;
+	padding: 3% 0%;
+	border: 2px solid #0f3bbd;
+	margin: 10% auto 6% auto;
+	text-align: center;
+}
+.logo {
+	font-family: 'Volkhov', serif;
+	font-size: 1.9vw;
+	line-height: 90%;
+	color: black;
+	text-align: center;
+	width: 30%;
+}
+h1 {
+	font-size: 1.9vw;
+	line-height: 90%;
+	margin-bottom: 8%;
+	margin-top: 4%;
+	color: black;
+}
+.smaller {
+	font-family: 'Roboto', sans-serif;
+	font-size: 0.85vw;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+}
+.instruction {
+	font-family: 'Volkhov', serif;
+	font-size: 1.4vw;
+	color: #0f3bbd;
+	line-height: 160%;
+}
+.info {
+	flex: 0 1 auto;
+	width: 30%;	
+	text-align: right;
+	font-family: 'Volkhov', serif;
+	font-size: 1vw;
+	color: #0f3bbd;
+	margin-top: 3.5%;
+	line-height: 160%;
+	
+}
+.nobelPrizeLaureates h2 {
+	font-size: 8vw;
+	line-height: 120%;
+	font-family: 'Volkhov', serif;
+	letter-spacing: 5px;
+	//color: #0f3bbd;
+}
+.bookTitles {
+	flex: 0 1 auto;
+	width: 47%;
+	text-align: right;
+	padding-right: 3%;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+	font-size: 1.2vw;
+	box-sizing: border-box;	
+}
+.motivation {
+	flex: 0 1 auto;
+	text-align: left;
+	padding-left: 3%;
+	width: 47%;
+	font-family: 'Volkhov', serif;
+	letter-spacing: 2px;
+	font-size: 2vw;
+	box-sizing: border-box;
+}
+h2 {
+	font-family: 'Volkhov', serif;
+	letter-spacing: 2px;
+	font-size: 2vw;
+	font-weight: 100;
+	margin-bottom: 3%;
+}
+.bornInfo {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+	font-size: 1.2vw;
+	margin-bottom: 10%;
+}
+.countryLink {
+	text-decoration: underline;
+	letter-spacing: 2px;
+	font-size: 1.4vw;
+	text-align: right;	
+}
+.moreInfo {
+	flex: 0 1 auto;
+	width: 48%;
+	padding-top: 1%;
+}
+.moreNames {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	letter-spacing: 1.2px;
+	font-size: 1.4vw;
+}
