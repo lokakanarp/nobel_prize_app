@@ -9,17 +9,10 @@ const linksToMoreInfo = document.getElementById("linksToMoreInfo")
 const moreInfo = document.getElementById("moreInfo");
 const spinnerDiv = document.getElementById("spinnerDiv");
 
-/*Function to fetch and display list of laureates from the same country. */
-function fetchAllByBornCountry(country) {
+/*Function to display list of laureates from the same country and make the names into links by adding eventlisteners. */
+function displayAllByBornCountry(allByCountryData) {
+/* Select only the literature category. */
 	let byCountryArray = [];
-	displaySpinner ();
-	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
-	.then(function (response) {
-		return response.json();
-	})
-	.then(function (allByCountryData) {
-		stopSpinner();
-		/* Select only the literature category. */
 		for(person of allByCountryData.laureates) {
 			if (person.prizes[0].category == "literature") {
 				/* Make the result into html with id and class and put it in an array */
@@ -37,14 +30,26 @@ function fetchAllByBornCountry(country) {
 		byCountryArray = [];
 		/* Get all the names on the list and loop through. Put eventlisteners on each. Use the year from the id to make new search.*/
 		let moreNames = document.getElementsByClassName("moreNames");
-		for(oneName of moreNames) {
-			oneName.addEventListener('click', function () {
+		for(listName of moreNames) {
+			listName.addEventListener('click', function () {
 				const yearFromId = this.id;
 				emptyAllFields();
 				displayYear(yearFromId);
 				checkInputNumber(yearFromId);
 			})
 		}
+}
+
+/*Function to fetch list of laureates from the same country. */
+function fetchAllByBornCountry(country) {
+	displaySpinner ();
+	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
+	.then(function (response) {
+		return response.json();
+	})
+	.then(function (allByCountryData) {
+		stopSpinner();
+		displayAllByBornCountry(allByCountryData);
 	})
 	.catch(function (error) {
 			standardErrorMessage (error);
