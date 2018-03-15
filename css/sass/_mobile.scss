@@ -5,6 +5,10 @@ body {
 	color: #0f3bbd;
 }
 .superwrapper {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -13,6 +17,10 @@ body {
 	padding: 0;
 }
 .top {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex: 0 1 auto;
 	flex-direction: column;
@@ -75,12 +83,10 @@ h1 {
 	font-size: 4vw;
 	color: #0f3bbd;
 	line-height: 160%;
-	//text-align: left;
 }
 .info {
 	flex: 0 1 auto;
 	width: 100%;	
-	//background-color: aqua;
 	text-align: center;
 	font-family: 'Volkhov', serif;
 	font-size: 3.2vw;
@@ -93,15 +99,21 @@ a, a:visited {
 	color: #0f3bbd;
 }
 .wrapper {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
-	
-	//width: 90%;
 	justify-content: center;
 	margin: 0 auto;
 }
 .year {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
@@ -118,6 +130,10 @@ a, a:visited {
 	font-family: 'Rozha One', serif;
 }
 .middle_wrapper {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
@@ -137,6 +153,10 @@ a, a:visited {
 	//color: #0f3bbd;
 }
 .lower {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
@@ -194,6 +214,10 @@ h2 {
 	cursor: pointer; 
 }
 .bottom {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
 	display: flex;
 	flex-wrap: wrap;
 	flex: 0 1 auto;
@@ -225,7 +249,7 @@ h2 {
 	flex: 0 1 auto;
 	width: 100%;
 }
-//Code from ...
+//All of the following code is from http://tobiasahlin.com/spinkit/
 .sk-fading-circle {
   margin: 100px auto;
   width: 40px;

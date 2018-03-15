@@ -9,11 +9,9 @@ const linksToMoreInfo = document.getElementById("linksToMoreInfo")
 const moreInfo = document.getElementById("moreInfo");
 const spinnerDiv = document.getElementById("spinnerDiv");
 
-
-
 /*Function to fetch and display list of laureates from the same country. */
 function fetchAllByBornCountry(country) {
-	byCountryArray = [];
+	let byCountryArray = [];
 	displaySpinner ();
 	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
 	.then(function (response) {
