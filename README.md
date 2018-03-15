@@ -1,7 +1,8 @@
 Loka Kanarp
 ===========
 
-link to github
+[GitHub rep](https://github.com/lokakanarp/nobel_prize_app)
+[The webpage live](http://lokakoden.se/loka_kanarp_ajax/)
  
 This is a school assignment for Front end developer program at Medieinstitutet, Stockholm, 2018.
 
@@ -18,9 +19,9 @@ For this project I have been using:
 * Git
 
 This app uses the Nobel Prize API to present facts about the laureates. Learn more about the API at:
-[https://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/]
+[Nobel Prize](https://www.nobelprize.org/nobel_organizations/nobelmedia/nobelprize_org/developer/)
 It also uses the LIBRIS API to get book titles by the laureates. LIBRIS is the joint catalogue of the Swedish libraries. Learn more at:
-[http://librishelp.libris.kb.se/help/xsearch_eng.jsp?open=tech]
+[LIBRIS](http://librishelp.libris.kb.se/help/xsearch_eng.jsp?open=tech)
 
 My main idea was to mix two different API:s and use information from one to make a fetch in the other. The two API:s have been easy to work with. There was alot of information at the webpages describing how to use the API:s, and no keys were required. The main challange has been to sort the information. 
 If I had more time I would try to use local storage to store result from searches. I would remove duplicate links which occurs when there are multiple laureates. It would be fun to add a third API from Goodreads and show reviews for some of the laureates books. 
