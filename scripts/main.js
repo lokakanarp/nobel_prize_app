@@ -9,6 +9,7 @@ const linksToMoreInfo = document.getElementById("linksToMoreInfo")
 const moreInfo = document.getElementById("moreInfo");
 const spinnerDiv = document.getElementById("spinnerDiv");
 
+/* Function to display how many men and women who have been awarded. */
 function genderRatio(allData) {
 	let allLiteratureArray = [];
 	let sum = 0;
@@ -25,7 +26,7 @@ function genderRatio(allData) {
 		}
 	}
 	moreInfo.innerHTML = `<p>Out of<br><span class="bigger">${sum}</span> laureates there are<br><span class="bigger">${fem}</span> women and<br><span class="bigger">${sum - fem}</span> men.</p>`;
-}
+} /* End of genderRatio function */
 
 /* Function to sort and display list of living laureates and make the names into links by adding eventlisteners. */
 function displayAll(allData) {
@@ -57,7 +58,7 @@ function displayAll(allData) {
 		}
 } /* End of displayAll function. */
 
-/* Function to fetch list of all laureates. */
+/* Function to fetch list of all laureates and hand the data to genderRatio(). */
 function fetchAllGender() {
 	displaySpinner ();
 	fetch("http://api.nobelprize.org/v1/laureate.json?")
@@ -73,7 +74,7 @@ function fetchAllGender() {
 		})
 } /* End of fetch function. */
 
-/* Function to fetch list of all laureates. */
+/* Function to fetch list of all laureates and hand the data to displayAll(). */
 function fetchAll() {
 	displaySpinner ();
 	fetch("http://api.nobelprize.org/v1/laureate.json?")
