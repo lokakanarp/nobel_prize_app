@@ -1,7 +1,7 @@
 Loka Kanarp
 ===========
 
-[GitHub rep](https://github.com/lokakanarp/nobel_prize_app)
+[GitHub repo](https://github.com/lokakanarp/nobel_prize_app)
 [The webpage live](http://lokakoden.se/loka_kanarp_ajax/)
  
 This is a school assignment for Front end developer program at Medieinstitutet, Stockholm, 2018.
