@@ -21,4 +21,4 @@ It also uses the LIBRIS API to get book titles by the laureates. LIBRIS is the j
 http://librishelp.libris.kb.se/help/xsearch_eng.jsp?open=tech
 
 My main idea was to mix two different API:s and use information from one to make a fetch in the other. The two API:s have been easy to work with. There was alot of information at the webpages describing how to use the API:s, and no keys were required. The main challange has been to sort the information. 
-If I had more time I would try to use local storage to store result from searches. I would also like to make more functionality when it comes to sorting the information. It would be fun to add a third API from Goodreads and show reviews for some of the laureates books. 
+If I had more time I would try to use local storage to store result from searches. I would remove duplicate links which occurs when there are multiple laureates. It would be fun to add a third API from Goodreads and show reviews for some of the laureates books. 

@@ -206,7 +206,7 @@ h2 {
 	font-family: 'Volkhov', serif;
 	font-size: 1.8vw;
 }
-.countryLink, .livingLink {
+.countryLink, .livingLink, .genderLink {
 	text-decoration: underline;
 	letter-spacing: 2px;
 	font-size: 3.5vw;
@@ -244,6 +244,9 @@ h2 {
 	font-size: 3.5vw;
 	cursor: pointer; 
 	text-decoration: underline;
+}
+.bigger {
+	font-size: 4.5vw;
 }
 .spinnerDiv {
 	flex: 0 1 auto;
