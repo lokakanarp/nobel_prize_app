@@ -46,7 +46,7 @@ function fetchAllByBornCountry(country) {
 		}
 	})
 	.catch(function (error) {
-			console.log(error);
+			standardErrorMessage (error);
 		})
 }
 /*Function to reate links to display all awarded from the same country. */
@@ -84,7 +84,7 @@ function fetchMoreInfoById(id){
 			displayLaureateInfo(laureateInfoData);
 		})
 		.catch(function (error) {
-			console.log(error);
+			standardErrorMessage (error);
 		})
 }
 /*A function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
@@ -120,7 +120,7 @@ function getLaureates(searchValue) {
 			displayLaureates(laureatesData);
 		})
 		.catch(function (error) {
-			console.log(error);
+			standardErrorMessage (error);
 		})
 } //End of getLaureates function
 
@@ -199,16 +199,23 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 						displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 					})
 					.catch(function (error) {
-						console.log(error);
+						standardErrorMessage (error);
 					})
 			} else {
 				displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 			}
 		})
 		.catch(function (error) {
-			console.log(error);
+			standardErrorMessage (error);
+		
 		})
 } //End of getLibrisBooks function
+
+function standardErrorMessage (error) {
+	errorMessage.innerHTML = 
+			`<p class="errormessage">Something went wrong. 
+			Please try again.</p>`;
+}
 
 //Function to display year
 function displayYear(searchValue) {
