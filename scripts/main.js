@@ -9,6 +9,63 @@ const linksToMoreInfo = document.getElementById("linksToMoreInfo")
 const moreInfo = document.getElementById("moreInfo");
 const spinnerDiv = document.getElementById("spinnerDiv");
 
+/*Function to sort and display list of living laureates and make the names into links by adding eventlisteners. */
+function displayAll(allData) {
+	let allLivingArray = [];
+	let allLivingLiteratureArray = [];
+		for(live of allData.laureates) {
+			if(live.died == "0000-00-00")
+				allLivingArray.push(live);
+		}
+		for(lit of allLivingArray) {
+			if (lit.prizes[0].category == "literature") {
+				allLivingLiteratureArray.push(`<p id="${lit.prizes[0].year}" class="livingNames">${lit.firstname} ${lit.surname}</p>`);
+			}
+		}
+		let namesLivingHtml = "";
+		for (nameLiving of allLivingLiteratureArray){
+			namesLivingHtml += nameLiving;
+		}
+		moreInfo.innerHTML = namesLivingHtml;
+		allLivingLiteratureArray = [];
+		let livingNames = document.getElementsByClassName("livingNames");
+		for(livingName of livingNames) {
+			livingName.addEventListener('click', function () {
+				const yearFromId = this.id;
+				emptyAllFields();
+				displayYear(yearFromId);
+				checkInputNumber(yearFromId);
+			})
+		}
+} /* End of displayAll function. */
+
+/* Function to fetch list of all laureates. */
+function fetchAll() {
+	displaySpinner ();
+	fetch("http://api.nobelprize.org/v1/laureate.json?")
+	.then(function (response) {
+		return response.json();
+	})
+	.then(function (allData) {
+		stopSpinner();
+		displayAll(allData);
+	})
+	.catch(function (error) {
+			standardErrorMessage (error);
+		})
+} /* End of fetch function */
+
+/* Function to create link to list of all living laureates. */
+function createLivingLink() {
+	livingLinkHtml = `<div id="livingLink" class="livingLink"><h3>
+						List of all living laureates</h3></div>`;
+	linksToMoreInfo.insertAdjacentHTML('beforeend', livingLinkHtml);
+	const livingLink = document.getElementById("livingLink");
+	livingLink.addEventListener('click', function () {
+		fetchAll();
+	})		
+} /*End of createLivingLink function */
+
 /*Function to display list of laureates from the same country and make the names into links by adding eventlisteners. */
 function displayAllByBornCountry(allByCountryData) {
 /* Select only the literature category. */
@@ -38,7 +95,7 @@ function displayAllByBornCountry(allByCountryData) {
 				checkInputNumber(yearFromId);
 			})
 		}
-}
+} /* End of displayAllByBornCountry function. */
 
 /*Function to fetch list of laureates from the same country. */
 function fetchAllByBornCountry(country) {
@@ -54,8 +111,9 @@ function fetchAllByBornCountry(country) {
 	.catch(function (error) {
 			standardErrorMessage (error);
 		})
-}
-/*Function to reate links to display all awarded from the same country. */
+} /* End of fetch function. */
+
+/*Function to create links to display all awarded from the same country. */
 function createCountryLinks(laureateInfoData) {
 	let country = laureateInfoData.laureates[0].bornCountry;
 		countryLinkHtml = `<div id="countryLink" class="countryLink"><h3>
@@ -67,7 +125,8 @@ function createCountryLinks(laureateInfoData) {
 				fetchAllByBornCountry(country);
 			})
 		}
-}
+} /* End of createCountryLinks. */
+
 /* Function to display name, birth date and death date. */
 function displayLaureateInfo(laureateInfoData) {
 	let infoHtml = "";
@@ -79,8 +138,10 @@ function displayLaureateInfo(laureateInfoData) {
 	}
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
 	createCountryLinks(laureateInfoData);
-}
-//Function to fetch more info from Nobel Prize API.
+	createLivingLink();
+} /* End of displayLaureateInfo function */
+
+/* Function to fetch more info from Nobel Prize API. */
 function fetchMoreInfoById(id){
 		displaySpinner ();
 		fetch(`http://api.nobelprize.org/v1/laureate.json?id=${id}`)
@@ -94,8 +155,9 @@ function fetchMoreInfoById(id){
 		.catch(function (error) {
 			standardErrorMessage (error);
 		})
-}
-//A function to display booktitles at the webpage.
+} /* End of fetch function */
+
+/* A function to display booktitles at the webpage. */
 function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
 	let booksHtml = "";
 	let booksArray = [];
@@ -132,11 +194,11 @@ function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName)
 			booksHtml += `<p>${item}</p>`;
 		}
 	}
-	/* Display the titles at the webpage */
+	/* Display the titles at the webpage. */
 	bookTitles.insertAdjacentHTML('beforeend', booksHtml);
-} //End of displayLibrisBooks function
+} /* End of displayLibrisBooks function. */
 
-//A function to get books from Libris API
+/* function to get books from Libris API. */
 function getLibrisBooks(laureateFirstName, laureateSurName) {
 	/* Search Libris API using the firstname and surname from Nobel prize API result data. */
 	displaySpinner ();
@@ -166,9 +228,9 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 			standardErrorMessage (error);
 		
 		})
-} //End of getLibrisBooks function
+} /* End of getLibrisBooks function. */
 
-/*A function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
+/* Function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
 function displayLaureates(laureatesData) {
 	let laureatesHtml = "";
 	let motivationHtml = "";
@@ -189,11 +251,11 @@ function displayLaureates(laureatesData) {
 			awarded this year. Please try again.</p>`;
 	}
 	motivation.innerHTML = motivationHtml;
-} //End of displayLauretes function
+} /* End of displayLauretes function. */
 
 
 
-//A function to get Laureates from Nobel prize API
+/* Function to get Laureates from Nobel prize API. */
 function getLaureates(searchValue) {
 	displaySpinner ();
 	fetch(`http://api.nobelprize.org/v1/prize.json?year=${searchValue}&category=literature`)
@@ -207,9 +269,9 @@ function getLaureates(searchValue) {
 		.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} //End of getLaureates function
+} /* End of getLaureates function. */
 
-//A function that checks the input value before the fetch is made.
+/* Function that checks the input value before the fetch is made. */
 function checkInputNumber(searchValue) {
 	var date = new Date();
 	var year = date.getFullYear();
@@ -223,7 +285,7 @@ function checkInputNumber(searchValue) {
 			`<p class="errormessage">We could not find a laureate for 
 				this year. Please try again.</p>`;
 	}
-} //End of checkInputNumber function
+} /* End of checkInputNumber function. */
 
 
 function standardErrorMessage (error) {
@@ -231,7 +293,6 @@ function standardErrorMessage (error) {
 			`<p class="errormessage">Something went wrong. 
 			Please try again.</p>`;
 }
-
 function displaySpinner () {
 	spinnerDiv.innerHTML = `<div class="sk-fading-circle">
   <div class="sk-circle1 sk-circle"></div>
@@ -252,12 +313,12 @@ function stopSpinner () {
 	spinnerDiv.innerHTML = "";
 }
 
-//Function to display year
+/* Function to display year */
 function displayYear(searchValue) {
 	var dividedYear = `${searchValue.substring(0, 2)}<br>${searchValue.substring(2, 4)}`;
 	yearp.innerHTML = dividedYear;
 }
-//Function to remove all data before new search is made.
+/* Function to remove all data before new search is made. */
 function emptyAllFields(){
 	bookTitles.innerHTML = "";
 	nobelPrizeLaureates.innerHTML = "";
@@ -266,7 +327,7 @@ function emptyAllFields(){
 	input.value = "";
 	linksToMoreInfo.innerHTML = "";
 }
-//Search button
+/* Search button */
 searchButton.addEventListener('click', function () {
 	const value = input.value;
 	emptyAllFields();

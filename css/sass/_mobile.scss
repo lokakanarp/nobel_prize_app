@@ -206,7 +206,7 @@ h2 {
 	font-family: 'Volkhov', serif;
 	font-size: 1.8vw;
 }
-.countryLink {
+.countryLink, .livingLink {
 	text-decoration: underline;
 	letter-spacing: 2px;
 	font-size: 3.5vw;
@@ -237,7 +237,7 @@ h2 {
 	box-sizing: border-box;
 	padding-top: 2%;
 }
-.moreNames {
+.moreNames, .livingNames {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 700;
 	letter-spacing: 1.2px;
