@@ -46,7 +46,6 @@
 }
 .logo {
 	font-family: 'Volkhov', serif;
-	//font-size: 1.9vw;
 	line-height: 90%;
 	color: black;
 	text-align: center;
@@ -87,7 +86,6 @@ h1 {
 	line-height: 120%;
 	font-family: 'Volkhov', serif;
 	letter-spacing: 5px;
-	//color: #0f3bbd;
 }
 .bookTitles {
 	flex: 0 1 auto;
@@ -141,12 +139,9 @@ h2 {
 	flex-wrap: wrap;
 	flex: 0 1 auto;
 	justify-content: space-between;
-	//flex-wrap: wrap;
 }
 .linksToMoreInfo {
 	flex: 0 1 auto;
-	width: 48%;
-	//background-color: aqua;
 }
 .moreInfo {
 	flex: 0 1 auto;

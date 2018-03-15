@@ -223,9 +223,19 @@ h2 {
 	flex: 0 1 auto;
 	justify-content: space-between;
 }
-.linksToMoreInfo {
+.firstDiv {
 	flex: 0 1 auto;
 	width: 48%;
+}
+.linksToMoreInfo {
+	padding-right: 3%;
+	box-sizing: border-box;
+}
+.genderLinkDiv {
+	padding-right: 3%;
+	box-sizing: border-box;
+}
+.linkToAllLiving {
 	padding-right: 3%;
 	box-sizing: border-box;
 }

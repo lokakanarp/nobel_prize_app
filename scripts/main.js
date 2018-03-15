@@ -5,7 +5,9 @@ const yearp = document.getElementById("yearp");
 const nobelPrizeLaureates = document.getElementById("nobelPrizeLaureates");
 const bookTitles = document.getElementById("bookTitles");
 const motivation = document.getElementById("motivation");
-const linksToMoreInfo = document.getElementById("linksToMoreInfo")
+const linksToMoreInfo = document.getElementById("linksToMoreInfo");
+const genderLinkDiv = document.getElementById("genderLinkDiv");
+const linkToAllLiving = document.getElementById("linkToAllLiving");
 const moreInfo = document.getElementById("moreInfo");
 const spinnerDiv = document.getElementById("spinnerDiv");
 
@@ -94,7 +96,7 @@ function fetchAll() {
 function createGenderLink() {
 	genderLinkHtml = `<div id="genderLink" class="genderLink"><h3>
 						Gender ratio</h3></div>`;
-	linksToMoreInfo.insertAdjacentHTML('beforeend', genderLinkHtml);
+	genderLinkDiv.innerHTML = genderLinkHtml;
 	const genderLink = document.getElementById("genderLink");
 	genderLink.addEventListener('click', function () {
 		fetchAllGender();
@@ -105,7 +107,7 @@ function createGenderLink() {
 function createLivingLink() {
 	livingLinkHtml = `<div id="livingLink" class="livingLink"><h3>
 						List of all living laureates</h3></div>`;
-	linksToMoreInfo.insertAdjacentHTML('beforeend', livingLinkHtml);
+	linkToAllLiving.innerHTML = livingLinkHtml;
 	const livingLink = document.getElementById("livingLink");
 	livingLink.addEventListener('click', function () {
 		fetchAll();
