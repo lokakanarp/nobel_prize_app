@@ -1,10 +1,12 @@
-###Loka Kanarp
+Loka Kanarp
+===========
 
 link to github
  
 This is a school assignment for Front end developer program at Medieinstitutet, Stockholm, 2018.
 
-#####Who was awarded the Nobel Prize in Literature?
+Who was awarded the Nobel Prize in Literature?
+----------------------------------------------
 This app presents facts about those who have been awarded the Nobel Prize in Literature.  
 The user is asked to type in a year. The page then shows name, birth date and country, death date and country, motivation, and a few titles by the awarded. The user kan click on a link and an additional search is made, showing all the laureates from the same country. They can also choose to show all living laureates, and the numbers showing how many men and women who have been awarded. Each of these actions create a new fetch to an API.
 
