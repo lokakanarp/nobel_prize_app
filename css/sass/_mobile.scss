@@ -12,7 +12,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	//align-content: space-between;
 	margin: 0;
 	padding: 0;
 }
@@ -92,8 +91,7 @@ h1 {
 	font-size: 3.2vw;
 	color: #0f3bbd;
 	line-height: 160%;
-	margin-top: 5%;
-	
+	margin-top: 5%;	
 }
 a, a:visited {
 	color: #0f3bbd;
@@ -109,7 +107,7 @@ a, a:visited {
 	justify-content: center;
 	margin: 0 auto;
 }
-.year {
+.display_area {
 	display: -webkit-box; 
 	display: -moz-box;
 	display: -ms-flexbox;
@@ -120,7 +118,7 @@ a, a:visited {
 	position: relative;
 	text-align: center;
 }
- #yearp {
+ #year {
 	flex: 0 1 auto;
 	font-size: 65vw;
 	line-height: 42vw;
