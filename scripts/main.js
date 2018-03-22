@@ -28,9 +28,22 @@ function displayGenderRatio(allData) {
 		}
 	}
 	moreInfo.innerHTML = `<p>Out of<br><span class="bigger">${sum}</span> laureates there are<br><span class="bigger">${fem}</span> women and<br><span class="bigger">${sum - fem}</span> men.</p>`;
-} /* End of genderRatio function */
+} 
 
-/* Function to sort and display list of living laureates and make the names into links by adding eventlisteners. */
+/* Function to make the names of all the living laureates 
+into links by adding eventlisteners. */
+function addEventlistenersToLivingNames(){
+let livingNames = document.getElementsByClassName("livingNames");
+		for(livingName of livingNames) {
+			livingName.addEventListener('click', function () {
+				const yearFromId = this.id;
+				emptyAllFields();
+				displayYear(yearFromId);
+				checkInputNumber(yearFromId);
+			})
+		}
+}
+/* Function to sort and display list of living laureates. */ 
 function displayAllLiving(allData) {
 	let allLivingArray = [];
 	let allLivingLiteratureArray = [];
@@ -49,18 +62,10 @@ function displayAllLiving(allData) {
 		}
 		moreInfo.innerHTML = namesLivingHtml;
 		allLivingLiteratureArray = [];
-		let livingNames = document.getElementsByClassName("livingNames");
-		for(livingName of livingNames) {
-			livingName.addEventListener('click', function () {
-				const yearFromId = this.id;
-				emptyAllFields();
-				displayYear(yearFromId);
-				checkInputNumber(yearFromId);
-			})
-		}
-} /* End of displayAll function. */ 
+		addEventlistenersToLivingNames();
+} 
 
-/* Function to fetch list of all laureates and hand the data to genderRatio(). */
+/* Function to get list of all laureates. */
 function getAllGender() {
 	displaySpinner ();
 	fetch("http://api.nobelprize.org/v1/laureate.json?")
@@ -74,9 +79,9 @@ function getAllGender() {
 	.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} /* End of fetch function. */
+} 
 
-/* Function to fetch list of all laureates and hand the data to displayAll(). */
+/* Function to get list of all laureates. */
 function getAllLiving() {
 	displaySpinner ();
 	fetch("http://api.nobelprize.org/v1/laureate.json?")
@@ -90,29 +95,52 @@ function getAllLiving() {
 	.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} /* End of fetch function. */
+} 
 
-/* Function to create link to gender ratio. */
+/* Function to add eventlistener to gender link. */
+function addEventlistenerToGenderLink() {
+const genderLink = document.getElementById("genderLink");
+	genderLink.addEventListener('click', function () {
+		getAllGender();
+	})
+}
+
+/* Function to create gender link to gender ratio. */
 function createGenderLink() {
 	genderLinkHtml = `<div id="genderLink" class="genderLink"><h3>
 						Gender ratio</h3></div>`;
 	genderLinkDiv.innerHTML = genderLinkHtml;
-	const genderLink = document.getElementById("genderLink");
-	genderLink.addEventListener('click', function () {
-		getAllGender();
-	})		
-} /* End of createGender function. */
+	addEventlistenerToGenderLink();
+}
+
+
+/* Function to add eventlistener to living link. */
+function addEventlistenersToLivingLink() {
+const livingLink = document.getElementById("livingLink");
+	livingLink.addEventListener('click', function () {
+		getAllLiving();
+	})
+}
 
 /* Function to create link to list of all living laureates. */
 function createLivingLink() {
 	livingLinkHtml = `<div id="livingLink" class="livingLink"><h3>
 						List of all living laureates</h3></div>`;
-	linkToAllLiving.innerHTML = livingLinkHtml;
-	const livingLink = document.getElementById("livingLink");
-	livingLink.addEventListener('click', function () {
-		getAllLiving();
-	})		
-} /* End of createLivingLink function. */
+	linkToAllLiving.innerHTML = livingLinkHtml;	
+	addEventlistenersToLivingLink();
+} 
+
+function addEvenetListenersToMoreNames() {
+let moreNames = document.getElementsByClassName("moreNames");
+	for(listName of moreNames) {
+		listName.addEventListener('click', function () {
+			const yearFromId = this.id;
+			emptyAllFields();
+			displayYear(yearFromId);
+			checkInputNumber(yearFromId);
+		})
+	}
+}
 
 /* Function to display list of laureates from the same country and make the names into links by adding eventlisteners. */
 function displayAllByBornCountry(allByCountryData) {
@@ -133,19 +161,10 @@ function displayAllByBornCountry(allByCountryData) {
 		moreInfo.innerHTML = namesCountryHtml;
 		/* Empy the array */
 		byCountryArray = [];
-		/* Get all the names on the list and loop through. Put eventlisteners on each. Use the year from the id to make new search.*/
-		let moreNames = document.getElementsByClassName("moreNames");
-		for(listName of moreNames) {
-			listName.addEventListener('click', function () {
-				const yearFromId = this.id;
-				emptyAllFields();
-				displayYear(yearFromId);
-				checkInputNumber(yearFromId);
-			})
-		}
-} /* End of displayAllByBornCountry function. */
+		addEvenetListenersToMoreNames();
+} 
 
-/* Function to fetch list of laureates from the same country. */
+/* Function to get list of laureates from the same country. */
 function getAllByBornCountry(country) {
 	displaySpinner ();
 	fetch(`http://api.nobelprize.org/v1/laureate.json?bornCountry=${country}`)
@@ -159,21 +178,24 @@ function getAllByBornCountry(country) {
 	.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} /* End of fetch function. */
-
+} 
+/* Function to add eventlistener to the links to show all laureates brn in the same country.*/
+function addEventListenersToCountryLinks(country) {
+	const countryLink = document.getElementsByClassName("countryLink");
+		for(link of countryLink){
+			link.addEventListener('click', function () {
+				getAllByBornCountry(country);
+			})
+		}
+}
 /*Function to create links to display all awarded from the same country. */
 function createCountryLinks(moreLaureateData) {
 	let country = moreLaureateData.laureates[0].bornCountry;
 		countryLinkHtml = `<div id="countryLink" class="countryLink"><h3>
 						List of all laureates born in ${country}</h3></div>`;
 	linksToMoreInfo.insertAdjacentHTML('beforeend', countryLinkHtml);
-		const countryLink = document.getElementsByClassName("countryLink");
-		for(link of countryLink){
-			link.addEventListener('click', function () {
-				getAllByBornCountry(country);
-			})
-		}
-} /* End of createCountryLinks. */
+	addEventListenersToCountryLinks(country);
+} 
 
 /* Function to display name, birth date and death date. */
 function displayMoreLaureateData(moreLaureateData) {
@@ -188,7 +210,7 @@ function displayMoreLaureateData(moreLaureateData) {
 	createCountryLinks(moreLaureateData);
 	createLivingLink();
 	createGenderLink();
-} /* End of displayLaureateInfo function. */
+} 
 
 /* Function to fetch more info from Nobel Prize API. */
 function getMoreLaureateDataById(id){
@@ -204,7 +226,7 @@ function getMoreLaureateDataById(id){
 		.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} /* End of fetch function. */
+}
 
 /* A function to display booktitles at the webpage. */
 function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
@@ -245,7 +267,7 @@ function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName)
 	}
 	/* Display the titles at the webpage. */
 	bookTitles.insertAdjacentHTML('beforeend', booksHtml);
-} /* End of displayLibrisBooks function. */
+}
 
 /* function to get books from Libris API. */
 function getLibrisBooks(laureateFirstName, laureateSurName) {
@@ -277,7 +299,7 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 			standardErrorMessage (error);
 		
 		})
-} /* End of getLibrisBooks function. */
+} 
 
 /* Function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
 function displayLaureates(laureatesData) {
@@ -291,6 +313,7 @@ function displayLaureates(laureatesData) {
 			getLibrisBooks(laureateFirstName, laureateSurName);
 			getMoreLaureateDataById(id);
 			motivationHtml += `<p>${laureate.motivation}</p>`;
+			
 		}
 	} else {
 		year.innerHTML = `00<br>00`;;
@@ -300,7 +323,7 @@ function displayLaureates(laureatesData) {
 			awarded this year. Please try again.</p>`;
 	}
 	motivation.innerHTML = motivationHtml;
-} /* End of displayLauretes function. */
+} 
 
 /* Function to get Laureates data from Nobel prize API. */
 function getLaureateData(searchValue) {
@@ -316,7 +339,7 @@ function getLaureateData(searchValue) {
 		.catch(function (error) {
 			standardErrorMessage (error);
 		})
-} /* End of getLaureates function. */
+} 
 
 /* Function that checks the input value before the fetch is made. */
 function checkInputNumber(searchValue) {
@@ -332,7 +355,7 @@ function checkInputNumber(searchValue) {
 			`<p class="errormessage">We could not find a laureate for 
 				this year. Please try again.</p>`;
 	}
-} /* End of checkInputNumber function. */
+}
 
 function standardErrorMessage(error) {
 	errorMessage.innerHTML = 
