@@ -220,12 +220,16 @@ function getMoreLaureateDataById(id){
 }
 
 /* A function to display booktitles at the webpage. */
-function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
+function displayLibrisBooks(booksHtml, laureateFirstName, laureateSurName) {
+	bookTitles.insertAdjacentHTML('beforeend', `<h2>Titles by ${laureateFirstName} ${laureateSurName}</h2>`);
+	bookTitles.insertAdjacentHTML('beforeend', booksHtml);
+}
+
+/* A function to sort booktitles. */
+function sortLibrisBooks(librisBooksData, laureateFirstName, laureateSurName) {
 	let booksHtml = "";
 	let booksArray = [];
 	let filteredArray = [];
-	/* Display heading of the titles first. */
-	bookTitles.insertAdjacentHTML('beforeend', `<h2>Titles by ${laureateFirstName} ${laureateSurName}</h2>`);
 	/* Select only titles in English */
 	for (book of librisBooksData.xsearch.list) {
 		if (book.language == "eng" && book.type == "book") {
@@ -256,11 +260,10 @@ function displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName)
 			booksHtml += `<p>${item}</p>`;
 		}
 	}
-	/* Display the titles at the webpage. */
-	bookTitles.insertAdjacentHTML('beforeend', booksHtml);
+	displayLibrisBooks(booksHtml, laureateFirstName, laureateSurName);
 }
 
-/* function to get books from Libris API. */
+/* Function to get books from Libris API. */
 function getLibrisBooks(laureateFirstName, laureateSurName) {
 	/* Search Libris API using the firstname and surname from Nobel prize API result data. */
 	displaySpinner ();
@@ -277,13 +280,13 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 						return response.json();
 					})
 					.then(function (librisBooksData) {
-						displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
+						sortLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 					})
 					.catch(function (error) {
 						standardErrorMessage (error);
 					})
 			} else {
-				displayLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
+				sortLibrisBooks(librisBooksData, laureateFirstName, laureateSurName);
 			}
 		})
 		.catch(function (error) {
@@ -292,29 +295,28 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 		})
 } 
 
-function test(){
-	motivationHtml += `<p>${laureate.motivation}</p>`;
-	
-}
-
-/* Function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
-function displayMotivation(laureateData) {
-	let motivationHtml = "";
-	for (laureate of laureateData.prizes[0].laureates) {
-			motivationHtml += `<p>${laureate.motivation}</p>`;
-		}
-	motivation.innerHTML = motivationHtml;
+/* Function to display the motivation at the webpage. */
+function displayMotivation(motivationText) {
+	//let motivationHtml = "";
+	//for (laureate of laureateData.prizes[0].laureates) {
+	motivation.innerHTML += `<p>${motivationText}</p>`;
+		//}
+	//motivation.innerHTML = motivationHtml;
 } 
 
+/* Sort data */
 function sortLaureateData(laureateData) {
 	if (laureateData.prizes.length > 0) {
+		//displayMotivation(laureateData);
 		for (laureate of laureateData.prizes[0].laureates) {
 			let laureateSurName = laureate.surname;
 			let laureateFirstName = laureate.firstname;
 			let id = laureate.id;
+			let motivationText = laureate.motivation;
 			getLibrisBooks(laureateFirstName, laureateSurName);
 			getMoreLaureateDataById(id);
-			displayMotivation(laureateData);
+			displayMotivation(motivationText);
+			
 		}
 	} else {
 		year.innerHTML = `00<br>00`;;
