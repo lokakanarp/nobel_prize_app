@@ -31,7 +31,7 @@ function displayGenderRatio(allData) {
 } 
 
 /* Function to make the names of all the living laureates 
-into links by adding eventlisteners. */
+into links. */
 function addEventlistenersToLivingNames(){
 let livingNames = document.getElementsByClassName("livingNames");
 		for(livingName of livingNames) {
@@ -64,7 +64,6 @@ function displayAllLiving(allData) {
 		allLivingLiteratureArray = [];
 		addEventlistenersToLivingNames();
 } 
-
 /* Function to get list of all laureates. */
 function getAllGender() {
 	displaySpinner ();
@@ -80,7 +79,6 @@ function getAllGender() {
 			standardErrorMessage (error);
 		})
 } 
-
 /* Function to get list of all laureates. */
 function getAllLiving() {
 	displaySpinner ();
@@ -96,7 +94,6 @@ function getAllLiving() {
 			standardErrorMessage (error);
 		})
 } 
-
 /* Function to add eventlistener to gender link. */
 function addEventlistenerToGenderLink() {
 const genderLink = document.getElementById("genderLink");
@@ -104,7 +101,6 @@ const genderLink = document.getElementById("genderLink");
 		getAllGender();
 	})
 }
-
 /* Function to create gender link to gender ratio. */
 function createGenderLink() {
 	genderLinkHtml = `<div id="genderLink" class="genderLink"><h3>
@@ -112,8 +108,6 @@ function createGenderLink() {
 	genderLinkDiv.innerHTML = genderLinkHtml;
 	addEventlistenerToGenderLink();
 }
-
-
 /* Function to add eventlistener to living link. */
 function addEventlistenersToLivingLink() {
 const livingLink = document.getElementById("livingLink");
@@ -121,7 +115,6 @@ const livingLink = document.getElementById("livingLink");
 		getAllLiving();
 	})
 }
-
 /* Function to create link to list of all living laureates. */
 function createLivingLink() {
 	livingLinkHtml = `<div id="livingLink" class="livingLink"><h3>
@@ -129,7 +122,7 @@ function createLivingLink() {
 	linkToAllLiving.innerHTML = livingLinkHtml;	
 	addEventlistenersToLivingLink();
 } 
-
+/* Function to make the names in list into links */
 function addEvenetListenersToMoreNames() {
 let moreNames = document.getElementsByClassName("moreNames");
 	for(listName of moreNames) {
@@ -141,8 +134,7 @@ let moreNames = document.getElementsByClassName("moreNames");
 		})
 	}
 }
-
-/* Function to display list of laureates from the same country and make the names into links by adding eventlisteners. */
+/* Function to display list of laureates from the same country. */
 function displayAllByBornCountry(allByCountryData) {
 /* Select only the literature category. */
 	let byCountryArray = [];
@@ -163,7 +155,6 @@ function displayAllByBornCountry(allByCountryData) {
 		byCountryArray = [];
 		addEvenetListenersToMoreNames();
 } 
-
 /* Function to get list of laureates from the same country. */
 function getAllByBornCountry(country) {
 	displaySpinner ();
@@ -179,7 +170,7 @@ function getAllByBornCountry(country) {
 			standardErrorMessage (error);
 		})
 } 
-/* Function to add eventlistener to the links to show all laureates brn in the same country.*/
+/* Function to add eventlistener to the links to show all all awarded from the same country.*/
 function addEventListenersToCountryLinks(country) {
 	const countryLink = document.getElementsByClassName("countryLink");
 		for(link of countryLink){
@@ -204,7 +195,7 @@ function displayMoreLaureateData(moreLaureateData) {
 		infoHtml = `<h2>${moreLaureateData.laureates[0].firstname} ${moreLaureateData.laureates[0].surname}</h2><p class="bornInfo">Born ${moreLaureateData.laureates[0].born} in ${moreLaureateData.laureates[0].bornCountry}.</p>`	
 	}
 	else {
-	infoHtml = `<h2>${moreLaureateData.laureates[0].firstname} ${moreLaureateData.laureates[0].surname}</h2><p class="bornInfo">Born ${moreLaureateData.laureates[0].born} in ${moreLaureateData.laureates[0].bornCountry}. Deceased ${moreLaureateData.laureates[0].died} in ${moreLaureateData.laureates[0].diedCountry}.<p>`;
+		infoHtml = `<h2>${moreLaureateData.laureates[0].firstname} ${moreLaureateData.laureates[0].surname}</h2><p class="bornInfo">Born ${moreLaureateData.laureates[0].born} in ${moreLaureateData.laureates[0].bornCountry}. Deceased ${moreLaureateData.laureates[0].died} in ${moreLaureateData.laureates[0].diedCountry}.<p>`;
 	}
 	nobelPrizeLaureates.insertAdjacentHTML('beforeend', infoHtml);
 	createCountryLinks(moreLaureateData);
@@ -301,19 +292,29 @@ function getLibrisBooks(laureateFirstName, laureateSurName) {
 		})
 } 
 
+function test(){
+	motivationHtml += `<p>${laureate.motivation}</p>`;
+	
+}
+
 /* Function to hand the laureate name to getLibrisBooks function and the id to fetchmoreInfoById function and to display the motivation at the webpage. */
-function displayLaureates(laureatesData) {
-	let laureatesHtml = "";
+function displayMotivation(laureateData) {
 	let motivationHtml = "";
-	if (laureatesData.prizes.length > 0) {
-		for (laureate of laureatesData.prizes[0].laureates) {
+	for (laureate of laureateData.prizes[0].laureates) {
+			motivationHtml += `<p>${laureate.motivation}</p>`;
+		}
+	motivation.innerHTML = motivationHtml;
+} 
+
+function sortLaureateData(laureateData) {
+	if (laureateData.prizes.length > 0) {
+		for (laureate of laureateData.prizes[0].laureates) {
 			let laureateSurName = laureate.surname;
 			let laureateFirstName = laureate.firstname;
 			let id = laureate.id;
 			getLibrisBooks(laureateFirstName, laureateSurName);
 			getMoreLaureateDataById(id);
-			motivationHtml += `<p>${laureate.motivation}</p>`;
-			
+			displayMotivation(laureateData);
 		}
 	} else {
 		year.innerHTML = `00<br>00`;;
@@ -322,7 +323,7 @@ function displayLaureates(laureatesData) {
 			`<p class="errormessage">No one was 
 			awarded this year. Please try again.</p>`;
 	}
-	motivation.innerHTML = motivationHtml;
+
 } 
 
 /* Function to get Laureates data from Nobel prize API. */
@@ -332,9 +333,9 @@ function getLaureateData(searchValue) {
 		.then(function (response) {
 			return response.json();
 		})
-		.then(function (laureatesData) {
+		.then(function (laureateData) {
 			stopSpinner();
-			displayLaureates(laureatesData);
+			sortLaureateData(laureateData);
 		})
 		.catch(function (error) {
 			standardErrorMessage (error);
